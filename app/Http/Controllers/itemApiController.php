@@ -19,34 +19,48 @@ class itemApiController extends Controller
 
     //Create a new item
     public function store() {
-        request()->validate([
-            'item_name' => 'required',
-            'description' => 'required',
-            'quantity' => 'required',
-            'category' => 'required',
-            'price' => 'required',
-        ]);
+        // request()->validate([
+        //     'item_name' => 'required',
+        //     'description' => 'required',
+        //     'quantity' => 'required',
+        //     'category' => 'required',
+        //     'price' => 'required',
+        // ]);
     
         return Item::create([
-            'item_name' => request('item_name'),
-            'description' => request('description'),
-            'quantity' => request('quantity'),
-            'category' => request('category'),
-            'price' => request('price'),
+            'item_name' => "New Item",
+            'description' => "This is a new product",
+            'quantity' => 10,
+            'category' => "Household",
+            'price' => 9.99,
         ]);
     }
 
     //Update specific item
-    public function update(Item $item) {
-        $item->update();
-    }
+    public function update($id) {
+        $data = Item::find($id);
+        $data->item_name = "Brush";
+        $data->description = "Household Cleaning Equipment";
+        $data->quantity = 5;
+        $data->category = "Household";
+        $data->price = 10.90;
 
-    //Delete specific item
-    public function destroy(Item $item) {
-        $success = $item->delete();
+        $data->update();
 
         return [
-            'success' => $success,
+            'success' => $data,
+        ];
+    }
+
+    //Delete specific item based on id
+    public function destroy($id) {
+        
+        $data = Item::find($id);
+        $data->delete($id);
+      
+
+        return [
+            'success' => $data,
         ];
     }
 }
