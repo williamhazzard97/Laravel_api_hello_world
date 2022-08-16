@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\Item;
 
 class itemApiController extends Controller
@@ -62,5 +63,14 @@ class itemApiController extends Controller
         return [
             'success' => $data,
         ];
+    }
+
+    /**
+     * Search for specific item name by passing in the {item_name} from the end of the Route::get('/search/{item_name}' uri
+     * then return the items from the Item model where the entered name is like the items in the dataset
+     */
+    public function searchItemName($item_name) {
+        
+        return Item::where('item_name', 'ilike', '%' .$item_name. '%')->get();
     }
 }

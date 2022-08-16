@@ -33,3 +33,6 @@ Route::post('/store', [itemApiController::class, 'store']);
 Route::put('/items/{id}', [itemApiController::class, 'update']);
 //Delete item
 Route::delete('/items/{id}', [itemApiController::class, 'destroy']);
+
+//Search for specific item name
+Route::get('/search/{item_name}', [itemApiController::class, 'searchItemName']);
